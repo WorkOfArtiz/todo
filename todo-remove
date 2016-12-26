@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# 88888888888          888
+#     888              888
+#     888              888
+#     888  .d88b.  .d88888 .d88b.
+#     888 d88""88bd88" 888d88""88b
+#     888 888  888888  888888  888
+#     888 Y88..88PY88b 888Y88..88P
+#     888  "Y88P"  "Y88888 "Y88P"
+#
+#    This script is part of the Todo program
+#    Arthur de Fluiter 26 Dec 2k16
+[[ -z "$TODO_FILE" || ! -f $TODO_FILE ]] && export TODO_FILE=~/.todo
+touch $TODO_FILE
+
+if [ $# -eq 0 ];
+then
+    echo no regex provided to remove todos with, did you mean todo-clear ?
+    exit 1
+fi
+
+echo The following items will be deleted:
+grep $1 $TODO_FILE | sed 's/\s*\(.\)/ - \U\1/' | sort | uniq | xargs -d "\n" printf "%-30s %-30s %-30s\n"
+
+printf "Are you sure ? [y/n]:"
+read is_sure
+echo $is_sure
+if [[ $is_sure =~ ^[Yy]$ ]];
+then
+    echo "Removing"
+    tmp_todo=$(mktemp)
+    grep -v $1 $TODO_FILE > tmp_todo && mv tmp_todo $TODO_FILE
+else
+    echo "Aborted"
+fi

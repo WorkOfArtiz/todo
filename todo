@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# 88888888888          888
+#     888              888
+#     888              888
+#     888  .d88b.  .d88888 .d88b.
+#     888 d88""88bd88" 888d88""88b
+#     888 888  888888  888888  888
+#     888 Y88..88PY88b 888Y88..88P
+#     888  "Y88P"  "Y88888 "Y88P"
+#
+#    This script is part of the Todo program
+#    Arthur de Fluiter 26 Dec 2k16
+[[ -z "$TODO_FILE" || ! -f $TODO_FILE ]] && export TODO_FILE=~/.todo
+touch $TODO_FILE
+echo $@ >> $TODO_FILE 

@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# 88888888888          888
+#     888              888
+#     888              888
+#     888  .d88b.  .d88888 .d88b.
+#     888 d88""88bd88" 888d88""88b
+#     888 888  888888  888888  888
+#     888 Y88..88PY88b 888Y88..88P
+#     888  "Y88P"  "Y88888 "Y88P"
+#
+#    This script is part of the Todo program
+#    Arthur de Fluiter 26 Dec 2k16
+[[ -z "$TODO_FILE" || ! -f $TODO_FILE ]] && export TODO_FILE=~/.todo
+touch $TODO_FILE
+
+# First set the format, depending on whether you have figlet/lolcat installed
+format=""
+hash figlet 2>/dev/null && format="$format | figlet";
+hash lolcat 2>/dev/null && format="$format | lolcat";
+
+eval "echo TODO $format"
+perl -e "print '-'x80,\"\n\";"
+cat $TODO_FILE | grep -v '^$' | sed 's/\s*\(.\)/ - \U\1/' | sort | uniq

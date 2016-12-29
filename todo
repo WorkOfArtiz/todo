@@ -13,4 +13,12 @@
 #    Arthur de Fluiter 26 Dec 2k16
 [[ -z "$TODO_FILE" || ! -f $TODO_FILE ]] && export TODO_FILE=~/.todo
 touch $TODO_FILE
-echo $@ >> $TODO_FILE 
+
+# if we have no arguments (normal API)
+if [ $# -eq 0 ]
+  then
+    # if we have an input pipe that isn't the terminal
+    if ! [ -t 0 ] ; then (cat <&0) >> $TODO_FILE; fi
+  else
+    echo $@ >> $TODO_FILE
+fi

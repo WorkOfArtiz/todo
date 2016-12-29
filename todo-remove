@@ -30,7 +30,8 @@ if [[ $is_sure =~ ^[Yy]$ ]];
 then
     echo "Removing"
     tmp_todo=$(mktemp)
-    grep -v $1 $TODO_FILE > tmp_todo && mv tmp_todo $TODO_FILE
+    grep -v $1 $TODO_FILE > tmp_todo
+    mv tmp_todo $TODO_FILE
 else
     echo "Aborted"
 fi

@@ -12,7 +12,7 @@
 #    This script is part of the Todo program
 #    Arthur de Fluiter 26 Dec 2k16
 chmod 777 todo*
-sudo cp todo* /usr/bin/
+sudo cp -f todo* /usr/bin/
 
 read -p "Do you also want to install lolcat/figlet [colours and big letters]" -n 1 -r
 echo ""
